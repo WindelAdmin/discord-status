@@ -34,6 +34,7 @@ export class AppService {
 
         if (data) {
           const message = `${data.commit.commit.message} - ${data.description}`;
+          console.log('channel: ', { channel, message });
           channel.send(message);
         }
       });
