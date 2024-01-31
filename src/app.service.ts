@@ -9,7 +9,9 @@ require('dotenv').config();
 export class AppService {
   async getWebhook(data: any) {
     const getToken = () => {
-      return process.env.TOKEN;
+      const token = process.env.TOKEN;
+      console.log('token: ', token);
+      return token || '';
     };
 
     client.on('ready', async () => {
