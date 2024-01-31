@@ -5,8 +5,9 @@ import CryptoJS from 'crypto-js';
 import { Client, GatewayIntentBits } from 'discord.js';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
+require('dotenv').config();
 async function getToken() {
+  console.log(process.env.KEY_DECRYPT);
   const passphrase = process.env.KEY_DECRYPT;
   const tokenToDecrypt = process.env.TOKEN;
 
