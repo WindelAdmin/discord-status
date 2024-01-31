@@ -1,26 +1,17 @@
 import { Injectable } from '@nestjs/common';
 
-import CryptoJS from 'crypto-js';
-
 import { Client, GatewayIntentBits } from 'discord.js';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 require('dotenv').config();
-async function getToken() {
-  console.log(process.env.KEY_DECRYPT);
-  const passphrase = process.env.KEY_DECRYPT;
-  const tokenToDecrypt = process.env.TOKEN;
-
-  const tokenConvert = Buffer.from(tokenToDecrypt, 'base64').toString('utf-8');
-
-  const bytes = CryptoJS.AES.decrypt(tokenConvert, passphrase);
-
-  return await bytes.toString(CryptoJS.enc.Utf8);
-}
 
 @Injectable()
 export class AppService {
   async getWebhook(data: any) {
+    const getToken = () => {
+      return process.env.TOKEN;
+    };
+
     client.on('ready', async () => {
       const date = new Date();
       console.log(
@@ -53,6 +44,6 @@ export class AppService {
       }
     });
 
-    client.login(await getToken());
+    client.login(getToken());
   }
 }
