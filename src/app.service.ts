@@ -16,7 +16,6 @@ export class AppService {
           const commit = data?.commit?.commit?.message || '';
 
           const desc = data?.description || '';
-          const state = data?.state || '';
 
           const message = `${commit} || ${desc}`.trim();
           this.lastCommit = message;
