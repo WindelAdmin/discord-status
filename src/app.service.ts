@@ -40,7 +40,7 @@ export class AppService {
       });
 
       const token = getToken();
-
+      console.log('token: ', token);
       client.login(token);
     } catch (error) {
       console.log('error: ', error);
