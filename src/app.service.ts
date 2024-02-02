@@ -31,14 +31,11 @@ export class AppService {
         // });
 
         if (data) {
-          console.log('data: ', data);
           const mes = data?.commit?.commit?.message || '';
           const desc = data?.description || '';
 
           const message = `${mes} - ${desc}`;
-          console.log('channel: ', { channel, message });
-          const message2 = await channel.send(message);
-          console.log('message: ', message2);
+          await channel.send(message);
         }
       });
 
