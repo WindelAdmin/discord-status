@@ -28,6 +28,11 @@ export class AppService {
           }
           this.lastCommit = message;
           if (message !== '-') {
+            const messages = await channel.messages.fetch({
+              limit: 100,
+            });
+            channel.bulkDelete(messages);
+
             await channel.send(`${emoji} - ${message}`);
           }
         }
