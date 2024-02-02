@@ -32,6 +32,7 @@ export class AppService {
 
         if (data) {
           const mes = data?.commit?.commit?.message || '';
+          console.log('mes: ', mes);
           const desc = data?.description || '';
 
           const message = `${mes} - ${desc}`;
