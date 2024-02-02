@@ -3,6 +3,7 @@ import { client } from './client';
 
 @Injectable()
 export class AppService {
+  lastCommit: string = '';
   async getWebhook(data: any) {
     try {
       if (client.isReady) {
@@ -11,26 +12,20 @@ export class AppService {
           (channel) => channel.name === 'back-commit',
         );
 
-        // LIMPAR CANAL
-        // const channelWelcome = guild.channels.cache.find(
-        //   (channel) => channel.name === 'bem-vindo'
-        // );
-
-        // const messagess = await channelWelcome.messages.fetch({
-        //   limit: 40,
-        // });
-
-        // messagess.forEach(async (element) => {
-        //   await element.delete();
-        // });
-
         if (data) {
-          const mes = data?.commit?.commit?.message || '';
-          console.log('mes: ', mes);
-          const desc = data?.description || '';
+          const commit = data?.commit?.commit?.message || '';
 
-          const message = `${mes} - ${desc}`;
-          await channel.send(message);
+          const desc = data?.description || '';
+          const state = data?.state || '';
+
+          const message = `${commit} || ${desc}`;
+          /* if (message.split('||')[0].includes(this.lastCommit) && state === 'success') {
+            this.lastCommit = '';
+          } else if() {
+
+          }*/
+          console.log('message: ', message);
+          // await channel.send(message);
         }
       }
     } catch (error) {
