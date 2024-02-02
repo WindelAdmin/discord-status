@@ -31,8 +31,9 @@ export class AppService {
         // });
 
         if (data) {
-          const mes = data.commit.commit.message || '';
-          const desc = data.description || '';
+          console.log('data: ', data);
+          const mes = data?.commit?.commit?.message || '';
+          const desc = data?.description || '';
 
           const message = `${mes} - ${desc}`;
           console.log('channel: ', { channel, message });
