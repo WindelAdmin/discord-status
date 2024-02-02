@@ -18,14 +18,16 @@ export class AppService {
           const desc = data?.description || '';
           const state = data?.state || '';
 
-          const message = `${commit} || ${desc}`;
-          /* if (message.split('||')[0].includes(this.lastCommit) && state === 'success') {
-            this.lastCommit = '';
-          } else if() {
+          const message = `${commit} || ${desc}`.trim();
+          this.lastCommit = message;
 
-          }*/
+          if (message === this.lastCommit) {
+            return;
+          }
           console.log('message: ', message);
-          // await channel.send(message);
+          if (message !== '||') {
+            await channel.send(message);
+          }
         }
       }
     } catch (error) {
