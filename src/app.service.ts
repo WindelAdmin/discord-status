@@ -12,8 +12,6 @@ export class AppService {
         return process.env.TOKEN;
       }
       client.on('ready', async () => {
-        const date = new Date();
-
         const guild = client.guilds.cache.get(process.env.ID_SERVER);
         const channel: any = guild.channels.cache.find(
           (channel) => channel.name === 'back-commit',
@@ -35,14 +33,15 @@ export class AppService {
         if (data) {
           const mes = data.commit.commit.message || '';
           const desc = data.description || '';
+
           const message = `${mes} - ${desc}`;
           console.log('channel: ', { channel, message });
-          channel.send(message);
+          const message2 = await channel.send(message);
+          console.log('message: ', message2);
         }
       });
 
       const token = getToken();
-      console.log('token: ', token);
       client.login(token);
     } catch (error) {
       console.log('error: ', error);
