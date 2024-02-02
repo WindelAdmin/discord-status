@@ -18,11 +18,11 @@ export class AppService {
           const desc = data?.description || '';
 
           const message = `${commit} || ${desc}`.trim();
-          this.lastCommit = message;
 
           if (message === this.lastCommit) {
             return;
           }
+          this.lastCommit = message;
           console.log('message: ', message);
           if (message !== '||') {
             await channel.send(message);
