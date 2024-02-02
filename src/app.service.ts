@@ -19,11 +19,10 @@ export class AppService {
 
           const message = `${commit} - ${desc}`.trim();
 
-          if (message === this.lastCommit) {
+          if (message === this.lastCommit || message === '-') {
             return;
           }
           this.lastCommit = message;
-          console.log('message: ', message);
           if (message !== '-') {
             await channel.send(message);
           }
