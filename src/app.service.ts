@@ -16,6 +16,10 @@ export class AppService {
           const commit = data?.commit?.commit?.message || '';
 
           const desc = data?.description || '';
+          const state = data?.state || '';
+          const emoji = guild.emojis.cache.find(
+            (emoji) => emoji.name === state,
+          );
 
           const message = `${commit} - ${desc}`.trim();
 
@@ -24,7 +28,7 @@ export class AppService {
           }
           this.lastCommit = message;
           if (message !== '-') {
-            await channel.send(message);
+            await channel.send(`${emoji} - ${message}`);
           }
         }
       }
