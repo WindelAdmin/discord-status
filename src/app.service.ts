@@ -8,8 +8,14 @@ export class AppService {
     try {
       if (client.isReady) {
         const guild = client.guilds.cache.get(process.env.ID_SERVER);
-        const channel: any = guild.channels.cache.find(
+        const channelBack: any = guild.channels.cache.find(
           (channel) => channel.name === 'back-commit',
+        );
+        const channelWinpay: any = guild.channels.cache.find(
+          (channel) => channel.name === 'winpay-commit',
+        );
+        const channelWinSocket: any = guild.channels.cache.find(
+          (channel) => channel.name === 'winsocket-commit',
         );
 
         if (data) {
@@ -28,12 +34,13 @@ export class AppService {
           }
           this.lastCommit = message;
           if (message !== '-') {
-            const messages = await channel.messages.fetch({
-              limit: 100,
-            });
-            channel.bulkDelete(messages);
-
-            await channel.send(`${emoji} - ${message}`);
+            if (data?.name === 'WindelAdmin/winpay') {
+              await channelWinpay.send(`${emoji} - ${message}`);
+            } else if (data?.name === 'WindelAdmin/windel-socket-ms') {
+              await channelWinSocket.send(`${emoji} - ${message}`);
+            } else if (data?.name === 'WindelAdmin/windelback') {
+              await channelBack.send(`${emoji} - ${message}`);
+            }
           }
         }
       }
