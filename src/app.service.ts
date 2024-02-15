@@ -35,10 +35,22 @@ export class AppService {
           this.lastCommit = message;
           if (message !== '-') {
             if (data?.name === 'WindelAdmin/winpay') {
+              const messages = await channelWinpay.messages.fetch({
+                limit: 100,
+              });
+              channelWinpay.bulkDelete(messages);
               await channelWinpay.send(`${emoji} - ${message}`);
             } else if (data?.name === 'WindelAdmin/windel-socket-ms') {
+              const messages = await channelWinSocket.messages.fetch({
+                limit: 100,
+              });
+              channelWinSocket.bulkDelete(messages);
               await channelWinSocket.send(`${emoji} - ${message}`);
             } else if (data?.name === 'WindelAdmin/windelback') {
+              const messages = await channelBack.messages.fetch({
+                limit: 100,
+              });
+              channelBack.bulkDelete(messages);
               await channelBack.send(`${emoji} - ${message}`);
             }
           }
