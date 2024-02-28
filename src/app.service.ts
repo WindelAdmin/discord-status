@@ -60,7 +60,7 @@ export class AppService {
                 limit: 100,
               });
               channelFront.bulkDelete(messages);
-              await channelBack.send(`${emoji} - ${message}`);
+              await channelFront.send(`${emoji} - ${message}`);
             }
           }
         }
