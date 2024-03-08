@@ -20,6 +20,9 @@ export class AppService {
         const channelFront: any = guild.channels.cache.find(
           (channel) => channel.name === 'front-commit',
         );
+        const channelWinImporter: any = guild.channels.cache.find(
+          (channel) => channel.name === 'winimporter-commit',
+        );
 
         if (data) {
           const commit = data?.commit?.commit?.message || '';
@@ -43,7 +46,7 @@ export class AppService {
               });
               channelWinpay.bulkDelete(messages);
               await channelWinpay.send(`${emoji} - ${message}`);
-            } else if (data?.name === 'WindelAdmin/windel-socket-ms') {
+            } else if (data?.name === 'WindelAdmin/winsocket-ms') {
               const messages = await channelWinSocket.messages.fetch({
                 limit: 100,
               });
@@ -61,6 +64,12 @@ export class AppService {
               });
               channelFront.bulkDelete(messages);
               await channelFront.send(`${emoji} - ${message}`);
+            } else if (data?.name === 'WindelAdmin/winimporter-ms') {
+              const messages = await channelWinImporter.messages.fetch({
+                limit: 100,
+              });
+              channelWinImporter.bulkDelete(messages);
+              await channelWinImporter.send(`${emoji} - ${message}`);
             }
           }
         }
