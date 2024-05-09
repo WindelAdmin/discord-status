@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Client } from 'discord.js';
-import { isGuildReady } from './client.utils';
+import { client as clientInstance } from './client';
 
 @Injectable()
 export class AppService {
   private lastCommit = '';
 
-  async getWebhook(data: any, clientInstance: Client) {
-    if (!isGuildReady(clientInstance)) {
+  isGuildReady() {
+    return clientInstance.isReady;
+  }
+  async getWebhook(data: any) {
+    if (!this.isGuildReady()) {
       return;
     }
 
