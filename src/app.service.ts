@@ -12,6 +12,10 @@ export class AppService {
     if (!this.isGuildReady()) {
       return;
     }
+
+    if (data?.deployment_status) {
+      return;
+    }
     console.log(data);
 
     const guild = clientInstance.guilds.cache.get(process.env.ID_SERVER);
@@ -40,7 +44,9 @@ export class AppService {
       const { commit, name, description, state } = data;
 
       const commitMessage = this.getCommitMessage(commit, description);
-      const emoji = guild.emojis.cache.find((emoji) => emoji.name === state);
+      const emoji =
+        guild.emojis.cache.find((emoji) => emoji.name === state) ||
+        guild.emojis.cache.find((emoji) => emoji.name === 'pending');
 
       if (this.lastCommit === commitMessage || commitMessage === '-') {
         return;
@@ -87,7 +93,10 @@ export class AppService {
     }
   }
 
-  private getCommitMessage(commit: string, description: string) {
-    return `${commit} - ${description}`.trim();
+  private getCommitMessage(
+    commit: { commit: { message: string } },
+    description: string,
+  ) {
+    return `${commit?.commit?.message || ''} - ${description}`.trim();
   }
 }
