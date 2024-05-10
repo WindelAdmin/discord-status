@@ -6,7 +6,7 @@ export class AppService {
   private lastCommit = '';
 
   isGuildReady() {
-    return clientInstance.isReady;
+    return clientInstance.isReady();
   }
   async getWebhook(data: any) {
     if (!this.isGuildReady()) {
