@@ -12,6 +12,7 @@ export class AppService {
     if (!this.isGuildReady()) {
       return;
     }
+    console.log(data);
 
     const guild = clientInstance.guilds.cache.get(process.env.ID_SERVER);
     const channels = {
